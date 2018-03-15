@@ -19,9 +19,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private final static int TOKEN_EXPIRATION_SECONDS = 3600;
 
     private AuthenticationManager authenticationManager;
+    private CustomUserDetailsService customUserDetailsService;
 
-    public AuthorizationServerConfig(final AuthenticationManager authenticationManager) {
+    public AuthorizationServerConfig(final AuthenticationManager authenticationManager, final CustomUserDetailsService customUserDetailsService) {
         this.authenticationManager = authenticationManager;
+        this.customUserDetailsService = customUserDetailsService;
     }
 
     @Bean
@@ -33,6 +35,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints.tokenStore(tokenStore())
                 .authenticationManager(authenticationManager)
+                .userDetailsService(customUserDetailsService)
                 .allowedTokenEndpointRequestMethods(GET, POST);
     }
 
@@ -55,9 +58,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .withClient("acme")
                 .secret("acmesecret")
                 .accessTokenValiditySeconds(TOKEN_EXPIRATION_SECONDS)
-                .scopes("read-flights", "read-bookings", "write")
+                .scopes("read", "write")
 //                .autoApprove()
-                .authorizedGrantTypes("client_credentials", "authorization_code")
+                .authorizedGrantTypes("client_credentials", "authorization_code", "password", "refresh_token")
                 .and()
                 .withClient("bookings")
                 .secret("bookingssecret")

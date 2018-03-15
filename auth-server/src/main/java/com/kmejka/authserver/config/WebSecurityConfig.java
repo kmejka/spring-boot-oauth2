@@ -17,9 +17,12 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private Filter ssoSocialFilter;
+    private CustomAuthenticationProvider customAuthenticationProvider;
 
-    public WebSecurityConfig(final Filter ssoSocialFilter) {
+    public WebSecurityConfig(final Filter ssoSocialFilter,
+                             final CustomAuthenticationProvider customAuthenticationProvider) {
         this.ssoSocialFilter = ssoSocialFilter;
+        this.customAuthenticationProvider = customAuthenticationProvider;
     }
 
     @Override
@@ -43,6 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser( "admin").password("admin").roles("USER", "ACTUATOR");
+        auth.authenticationProvider(customAuthenticationProvider);
     }
 }
