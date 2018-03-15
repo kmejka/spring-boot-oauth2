@@ -39,11 +39,10 @@ public class SocialSSOConfig {
         final OAuth2RestTemplate restTemplate = new OAuth2RestTemplate(facebookClientConfig.getClient(), oAuth2ClientContext);
         facebookFilter.setRestTemplate(restTemplate);
 
-        final UserInfoTokenServices tokenServices =
-                new UserInfoTokenServices(facebookClientConfig.getResource().getUserInfoUri(), facebookClientConfig.getClient().getClientId());
+        final FacebookUserAuthenticationService facebookUserAuthenticationService =
+                new FacebookUserAuthenticationService(facebookClientConfig.getClient().getClientId());
 
-        tokenServices.setRestTemplate(restTemplate);
-        facebookFilter.setTokenServices(tokenServices);
+        facebookFilter.setTokenServices(facebookUserAuthenticationService);
         return facebookFilter;
     }
 }
