@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!--TODO MYT-940 Replace with proper implementation -->
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Demo</title>
+		<base href="/auth">
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" type="text/css"
+			  href="/auth/webjars/bootstrap/css/bootstrap.min.css"/>
+		<script type="text/javascript"
+				src="/auth/webjars/bootstrap/js/bootstrap.min.js"></script>
+	</head>
+	<body ng-app="app" ng-controller="home as home">
+		<div class="container" ng-show="!home.authenticated">
+
+			<form id="login-form" action="/auth/login" method="POST" ng-submit="home.login()">
+
+				<h2>Please sign in</h2>
+
+				<div class="form-group">
+					<label for="username">Username:</label>
+					<input id="username" name="username" type="text" class="form-control" value="" placeholder="Username"
+						   required autofocus ng-model="home.credentials.username"/>
+				</div>
+				<div class="form-group">
+					<label for="password">Password:</label>
+					<input id="password" name="password" type="password" class="form-control" value="" placeholder="Password"
+						   required ng-model="home.credentials.password"/>
+				</div>
+				<input id="login-form-csrf" name="_csrf" type="hidden" value="">
+
+				<button type="submit" class="btn btn-primary">Sign in</button>
+
+			</form>
+
+		</div>
+
+		<div class="container" ng-show="home.authenticated">
+			Logged in as: <span ng-bind="home.user"></span>
+			<div>
+				<button ng-click="home.logout()" class="btn btn-primary">Logout</button>
+			</div>
+		</div>
+
+
+		<script type="text/javascript" src="/auth/webjars/angularjs/angular.min.js"></script>
+		<script type="text/javascript" src="/auth/webjars/angularjs/angular-cookies.min.js"></script>
+		<script type="text/javascript">
+            angular
+                .module("app", ["ngCookies"])
+                .config(function ($httpProvider) {
+                    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+                })
+                .controller("home", function ($http, $location, $cookies) {
+                    var self = this;
+                    $http.get("/auth/me").success(function (data) {
+                        if (data.name) {
+                            self.user = data.name;
+                            self.authenticated = true;
+                        } else {
+                            self.user = "N/A";
+                            self.authenticated = false;
+                        }
+                    }).error(function () {
+                        self.user = "N/A";
+                        self.authenticated = false;
+                    });
+
+                    self.logout = function () {
+                        $http.post('logout', {}).success(function () {
+                            self.authenticated = false;
+                            $location.path("/auth/");
+                        }).error(function (data) {
+                            self.authenticated = false;
+                        });
+                    };
+
+                    self.credentials = {};
+                    self.login = function () {
+                        document.getElementById("login-form-csrf").value = $cookies.get('XSRF-TOKEN');
+                    };
+                });
+		</script>
+	</body>
+</html>

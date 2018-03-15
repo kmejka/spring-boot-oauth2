@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: auth_server
+
+# Profile: local
+---
+spring:
+  profiles: local
+
+server:
+  port: 8080
+  context-path: /auth
+
+logging:
+  level:
+    com.kmejka: TRACE
+    org.springframework.security: DEBUG
+    org.springframework.security.web.util.matcher: INFO
+
+management:
+  security:
+    enabled: false
+  context-path: /actuator

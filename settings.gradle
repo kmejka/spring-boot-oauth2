@@ -1,3 +1,4 @@
-include 'resource-server-bookings',
+include 'auth-server',
+        'resource-server-bookings',
         'resource-server-flights',
         'client'
