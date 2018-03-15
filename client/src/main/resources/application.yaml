@@ -24,3 +24,14 @@ service:
   bookings-api:
     service-name: bookings-api
     service-address: http://localhost:9000/api/bookings/v1
+
+security:
+  oauth2:
+    client:
+      client-id: acme
+      client-secret: acmesecret
+      access-token-uri: http://localhost:8080/auth/oauth/token
+      user-authorization-uri: http://localhost:8080/auth/oauth/authorize
+      scope: read
+    resource:
+      user-info-uri: http://localhost:8080/auth/user

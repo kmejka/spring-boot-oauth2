@@ -56,6 +56,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .accessTokenValiditySeconds(TOKEN_EXPIRATION_SECONDS)
                 .scopes("read", "write")
 //                .autoApprove()
-                .authorizedGrantTypes("client_credentials");
+                .authorizedGrantTypes("client_credentials", "authorization_code");
     }
 }
