@@ -20,7 +20,7 @@ public class FlightService {
                     .arrivalDate(Date.from(Instant.parse("2018-04-03T11:05:30.00Z")))
                     .destination("AMS")
                     .id("1") 
-                    .build(),
+                    .build(), 
             Flight.builder()
                     .departureDate(Date.from(Instant.parse("2018-03-16T12:15:30.00Z")))
                     .departure("BER")
