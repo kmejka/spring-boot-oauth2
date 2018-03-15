@@ -15,7 +15,7 @@ server:
 
 logging:
   level:
-    com.kmejka: TRACE
+    com.kmejka: TRACE 
     org.springframework.security: DEBUG
     org.springframework.security.web.util.matcher: INFO
 

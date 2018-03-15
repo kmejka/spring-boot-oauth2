@@ -25,6 +25,12 @@ service:
     service-name: bookings-api
     service-address: http://localhost:9000/api/bookings/v1
 
+logging:
+  level:
+    com.kmejka: TRACE
+    org.springframework.security: DEBUG
+    org.springframework.security.web.util.matcher: INFO
+
 security:
   oauth2:
     client:
@@ -32,6 +38,6 @@ security:
       client-secret: acmesecret
       access-token-uri: http://localhost:8080/auth/oauth/token
       user-authorization-uri: http://localhost:8080/auth/oauth/authorize
-      scope: read
+      scope: read-flights, read-bookings
     resource:
       user-info-uri: http://localhost:8080/auth/user

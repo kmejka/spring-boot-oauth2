@@ -12,7 +12,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @FeignClient(name = "${service.bookings-api.service-name}",
              url = "${service.bookings-api.service-address}",
-             fallbackFactory = BookingsClientFallbackFactory.class)
+             fallbackFactory = BookingsClientFallbackFactory.class,
+             configuration = BookingsClientConfiguration.class)
 public interface BookingsClient {
     @RequestMapping(method = GET, value = "/{id}")
     Booking getById(@PathVariable("id") @NonNull final String id);

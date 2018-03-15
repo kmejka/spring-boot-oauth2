@@ -38,6 +38,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     /**
      * This method defines how secured are operations related to getting a new token and validating an existing token.
+     * According to this configuration, every resource server, when validating a token will need to authenticate himself.
      * This configuration is identical as adding the configuration parameters below:
      * `security.oauth2.authorization.checkTokenAccess: isAuthenticated()` and
      * `security.oauth2.authorization.tokenKeyAccess: permitAll()`
@@ -54,8 +55,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .withClient("acme")
                 .secret("acmesecret")
                 .accessTokenValiditySeconds(TOKEN_EXPIRATION_SECONDS)
-                .scopes("read", "write")
+                .scopes("read-flights", "read-bookings", "write")
 //                .autoApprove()
-                .authorizedGrantTypes("client_credentials", "authorization_code");
+                .authorizedGrantTypes("client_credentials", "authorization_code")
+                .and()
+                .withClient("bookings")
+                .secret("bookingssecret")
+                .and()
+                .withClient("flights")
+                .secret("flightssecret");
     }
 }

@@ -14,7 +14,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @FeignClient(name = "${service.flights-api.service-name}",
              url = "${service.flights-api.service-address}",
-             fallbackFactory = FlightsClientFallbackFactory.class)
+             fallbackFactory = FlightsClientFallbackFactory.class,
+             configuration = FlightsClientConfiguration.class)
 public interface FlightsClient {
     @RequestMapping(method = GET, value = "/")
     Collection<Flight> getAll();

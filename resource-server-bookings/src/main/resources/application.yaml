@@ -24,3 +24,18 @@ service:
   flights-api:
     service-name: flights-api
     service-address: http://localhost:9010/api/flights/v1
+
+logging:
+  level:
+    com.kmejka: TRACE
+    org.springframework.security: DEBUG
+    org.springframework.security.web.util.matcher: INFO
+
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://localhost:8080/auth/me
+      tokenInfoUri: http://localhost:8080/auth/oauth/check_token
+    client:
+      client-id: bookings
+      client-secret: bookingssecret

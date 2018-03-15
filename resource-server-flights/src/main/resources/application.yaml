@@ -19,3 +19,18 @@ management:
   security:
     enabled: false
   context-path: /actuator
+
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://localhost:8080/auth/me
+      tokenInfoUri: http://localhost:8080/auth/oauth/check_token
+    client:
+      client-id: flights
+      client-secret: flightssecret
+
+logging:
+  level:
+    com.kmejka: TRACE
+    org.springframework.security: DEBUG
+    org.springframework.security.web.util.matcher: INFO
