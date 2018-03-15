@@ -1,0 +1,26 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: resource-server-bookings
+
+# Profile: local
+---
+spring:
+  profiles: local
+  jackson:
+    serialization:
+      indent_output: true
+
+server:
+  port: 9000
+
+management:
+  security:
+    enabled: false
+  context-path: /actuator
+
+service:
+  flights-api:
+    service-name: flights-api
+    service-address: http://localhost:9010/api/flights/v1

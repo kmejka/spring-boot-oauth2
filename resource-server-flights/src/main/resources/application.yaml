@@ -1,0 +1,21 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: resource-server-flights
+
+# Profile: local
+---
+spring:
+  profiles: local
+  jackson:
+    serialization:
+      indent_output: true
+
+server:
+  port: 9010
+
+management:
+  security:
+    enabled: false
+  context-path: /actuator

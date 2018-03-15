@@ -1,0 +1,26 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: client
+
+# Profile: local
+---
+spring:
+  profiles: local
+  jackson:
+    serialization:
+      indent_output: true
+
+server:
+  port: 8090
+
+management:
+  security:
+    enabled: false
+  context-path: /actuator
+
+service:
+  bookings-api:
+    service-name: bookings-api
+    service-address: http://localhost:9000/api/bookings/v1

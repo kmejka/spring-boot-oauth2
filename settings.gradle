@@ -1,0 +1,3 @@
+include 'resource-server-bookings',
+        'resource-server-flights',
+        'client'
