@@ -58,7 +58,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .withClient("acme")
                 .secret("acmesecret")
                 .accessTokenValiditySeconds(TOKEN_EXPIRATION_SECONDS)
-                .scopes("read", "write")
+                .scopes("read-flights", "read-bookings")
 //                .autoApprove()
                 .authorizedGrantTypes("client_credentials", "authorization_code", "password", "refresh_token")
                 .and()
